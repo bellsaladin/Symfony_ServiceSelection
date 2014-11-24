@@ -1,7 +1,5 @@
 {% extends 'BseSelectionBundle::layout.html.twig' %}
 
-{% block subTitle %}Selection{% endblock %}
-
 {% block content %}        
         
 
@@ -17,17 +15,9 @@
                     <p>{{ form_errors(form) }}</p>
                 </div>  
               </div>              
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Réessayer</button>               
-              </div>
             </div>
           </div>
-        </div>  
-        <script>
-            $(document).ready(function() {
-                
-            });
-        </script>
+        </div>
 
         {% for flashMessage in app.session.flashbag.get('notice') %}
             <div class="alert alert-success">
@@ -44,7 +34,7 @@
                 <label>18 à 22</label>            
                 <select id="{{ form.ageFrom18To22.vars.id }}" name="{{ form.ageFrom18To22.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -52,7 +42,7 @@
                 <label>23 à 25</label>            
                 <select id="{{ form.ageFrom23To25.vars.id }}" name="{{ form.ageFrom23To25.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -62,7 +52,7 @@
                 <label>UIT : </label>            
                 <select id="{{ form.etablissement.vars.id }}" name="{{ form.etablissement.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -70,26 +60,26 @@
                 <label>Type diplôme</label>            
                 <select id="{{ form.typeDiplome.vars.id }}" name="{{ form.typeDiplome.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label>Type diplôme</label>            
+                <label>Type système</label>            
                 <select id="{{ form.typeSysteme.vars.id }}" name="{{ form.typeSysteme.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <h4 style"> DUREE LICENCE :</h4>
+        <h4 style"> Durée de la licence :</h4>
         <div class="row">
             <div class="form-group col-md-4">
                 <label>3 à 4 ans : </label>            
                 <select id="{{ form.dureeLicenceFrom3To4.vars.id }}" name="{{ form.dureeLicenceFrom3To4.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -97,7 +87,7 @@
                 <label>5 à 6 ans</label>            
                 <select id="{{ form.dureeLicenceFrom5To6.vars.id }}" name="{{ form.dureeLicenceFrom5To6.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -105,18 +95,18 @@
                 <label>7 à 8 ans</label>            
                 <select id="{{ form.dureeLicenceFrom7To8.vars.id }}" name="{{ form.dureeLicenceFrom7To8.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <h4 style"> MENTIONS :</h4>
+        <h4 style"> Mentions :</h4>
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Assez bien </label>            
                 <select id="{{ form.mentionAssezBien.vars.id }}" name="{{ form.mentionAssezBien.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -124,7 +114,7 @@
                 <label>Bien</label>            
                 <select id="{{ form.mentionBien.vars.id }}" name="{{ form.mentionBien.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -132,36 +122,40 @@
                 <label>Très bien</label>            
                 <select id="{{ form.mentionTresBien.vars.id }}" name="{{ form.mentionTresBien.vars.full_name }}" class="form-control input-sm">
                     {% for i in 0..10 %}
-                        <option value="{{ i }}">{{ i }}</option><?php } ?>
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
 
-
         <br/>   
         <div>
-            <input type="button" id="execute" class="btn btn-success btn-sm" value="Exécuter"/>            
+            <div>                
+                <input type="button" id="execute" class="btn btn-success btn-sm pull-left" value="Exécuter"/>
+                <div id="loadingIndicator" style="float: left;margin: 5px 0 0 20px;display:none;"><img class="pull-left" src="{{ asset('bundles/bseselection/images/ajax-loader.gif') }}"/>&nbsp;&nbsp;Traitement en cours...</div>
+            </div>
+                        
         </div>
 
         <script>
         $(document).ready(function() {
 
             $('#execute').click(function() {
-                //alert('test');
+                // alert('test');
                 var formData = $("#selectionForm").serializeArray();
                 var URL = $("#selectionForm").attr("action");
+                $('#loadingIndicator').show();
                 $.post(URL,
                     formData,
                     function(data, textStatus, jqXHR)
                     {
-                        alert("le résultat doit être trié selon le score avant de l'affiché");
+                        //alert("le résultat doit être trié selon le score avant de l'affiché");
                         $('#myModal .modal-body').html(data);
-                        $('#myModal').modal('show');
-                       //data: Data from server.    
+                        $('#myModal').modal('show');                       
+                       $('#loadingIndicator').hide();
                     }).fail(function(jqXHR, textStatus, errorThrown) 
                     {
-                 
+                        $('#loadingIndicator').hide();
                     });
                 });
         });

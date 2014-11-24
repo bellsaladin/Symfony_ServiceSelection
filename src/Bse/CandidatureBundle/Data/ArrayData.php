@@ -104,11 +104,7 @@ class ArrayData
 	        $num = count($data);	        
 	        $intitulesdiplomes_LP[$data[0]] = $data[1];
 	    }
-	    fclose($handle);
-    	/*$data =array(
-			'Maroc',
-			'Autre',			
-		);*/
+	    fclose($handle);    	
 		return array('LF'=> $intitulesdiplomes_LF , 'LP' => $intitulesdiplomes_LP);
     }
 

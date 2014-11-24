@@ -1,8 +1,12 @@
 {# {{ dump(data) }} #}
-<table>
-<tr>
-		<td>Num dossier</td>
-		<td>Score</td>
+<div>
+<a href="{{ path('bse_selection_export') }}" class="btn btn-danger btn-sm" pull-left">Exporter vers excel</a>
+</div>
+<br/>
+<table class="table">
+	<tr>
+		<th>Num dossier</th>
+		<th>Score</th>
 	</tr>	
 {% for candidature in data %}
 	<tr>

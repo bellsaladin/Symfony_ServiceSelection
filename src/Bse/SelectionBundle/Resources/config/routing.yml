@@ -6,3 +6,8 @@ bse_selection_execute:
     path:     /execute
     defaults: { _controller: BseSelectionBundle:Default:execute }
     requirements: { _method: post }
+
+
+bse_selection_export:
+    path:     /export
+    defaults: { _controller: BseSelectionBundle:Default:export }

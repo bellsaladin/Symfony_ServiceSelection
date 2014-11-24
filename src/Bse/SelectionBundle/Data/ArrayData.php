@@ -27,14 +27,15 @@ class ArrayData
 	        		$columns[] = $columnValue;
 	        	}	        	
 	        	$firstRow = false;
-	        }
-	        $colIndex = 0;
-	        $candidature = array();
-	        foreach($data as $columnValue){
-	        	$candidature[$columns[$colIndex]] = $columnValue;
-	        	$colIndex++;
-	    	}
-	    	$resultArray[] = $candidature;
+	        }else{	        
+		        $colIndex = 0;
+		        $candidature = array();
+		        foreach($data as $columnValue){
+		        	$candidature[$columns[$colIndex]] = $columnValue;
+		        	$colIndex++;
+		    	}
+		    	$resultArray[] = $candidature;
+		    }
 	    }
 	    fclose($handle);
 		return $resultArray;
