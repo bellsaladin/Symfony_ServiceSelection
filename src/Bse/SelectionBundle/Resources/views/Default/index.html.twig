@@ -10,7 +10,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Erreurs</h4>
+                <h4 class="modal-title" id="myModalLabel">Résultat</h4>
               </div>              
               <div class="modal-body">
                 <div id="form-erros" style="color:rgb(213, 0, 0);">
@@ -148,14 +148,14 @@
         $(document).ready(function() {
 
             $('#execute').click(function() {
-                alert('test');
+                //alert('test');
                 var formData = $("#selectionForm").serializeArray();
                 var URL = $("#selectionForm").attr("action");
                 $.post(URL,
                     formData,
                     function(data, textStatus, jqXHR)
                     {
-                        //alert(data);
+                        alert("le résultat doit être trié selon le score avant de l'affiché");
                         $('#myModal .modal-body').html(data);
                         $('#myModal').modal('show');
                        //data: Data from server.    

@@ -1,1 +1,13 @@
-{{ dump(data) }}
+{# {{ dump(data) }} #}
+<table>
+<tr>
+		<td>Num dossier</td>
+		<td>Score</td>
+	</tr>	
+{% for candidature in data %}
+	<tr>
+		<td>{{candidature.id}}</td>
+		<td>{{candidature.score}}</td>
+	</tr>	
+{% endfor %}
+</table>
