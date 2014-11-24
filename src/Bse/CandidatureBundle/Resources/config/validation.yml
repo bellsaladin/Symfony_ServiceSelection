@@ -1,0 +1,104 @@
+Bse\CandidatureBundle\Entity\Candidature:
+    properties:
+        nom:
+            - NotBlank: 
+                message: Vous devez saisir votre nom
+        prenom:
+            - NotBlank: 
+                message: Vous devez saisir votre prénom
+        dateNaissance:
+            - NotBlank: 
+                message: Vous devez saisir votre date de naissance
+        cne:
+            - NotBlank: 
+                message: Vous devez saisir votre cne
+        cin:
+            - NotBlank: 
+                message: Vous devez saisir votre cin
+        pays:
+            - NotBlank: 
+                message: Vous devez indiquer votre pays
+        ville:
+            - NotBlank: 
+                message: Vous devez indiquer votre ville
+        sexe:
+            - NotBlank: 
+                message: Vous devez indiquer votre sexe
+        
+        etablissementOrigine:
+            - NotBlank: 
+                message: Vous devez indiquer votre établissement d'origine
+        typeDiplome:
+            - NotBlank: 
+                message: Vous devez indiquer le type de votre diplôme
+        intituleDiplome:
+            - NotBlank: 
+                message: Vous devez indiquer l'intitulé de votre diplôme
+        anneeObtentionBac:
+            - NotBlank: 
+                message: Vous devez indiquer l'année d'obtention de votre bac
+        anneeInscription:
+            - NotBlank: 
+                message: Vous devez indiquer l'année d'inscription
+        anneeObtentionLicence:
+            - NotBlank: 
+                message: Vous devez indiquer l'année d'obtention de votre licence
+        mention:
+            - NotBlank: 
+                message: Vous devez indiquer la mention
+
+        noteS1:
+            - NotBlank: 
+                message: La moyenne du semestre 1 ne doit pas être vide
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 1 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 1 doit être inférieure ou égale à {{ limit }}
+
+        noteS2:
+            - NotBlank: 
+                message: La moyenne du semestre 2 ne doit pas être vide
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 2 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 2 doit être inférieure ou égale à {{ limit }}
+        noteS3:
+            - NotBlank: 
+                message: La moyenne du semestre 3 ne doit pas être vide 
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 3 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 3 doit être inférieure ou égale à {{ limit }}
+        noteS4:
+            - NotBlank: 
+                message: La moyenne du semestre 4 ne doit pas être vide 
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 4 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 4 doit être inférieure ou égale à {{ limit }}
+        noteS5:
+            - NotBlank: 
+                message: La moyenne du semestre 5 ne doit pas être vide 
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 5 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 5 doit être inférieure ou égale à {{ limit }}
+        noteS6:
+            - NotBlank: 
+                message: La moyenne du semestre 6 ne doit pas être vide 
+            - Range:
+                min: 10
+                max: 20
+                minMessage: La moyenne du semestre 6 doit être supérieure ou égale à {{ limit }}
+                maxMessage: La moyenne du semestre 6 doit être inférieure ou égale à {{ limit }}
+        email:
+            - NotBlank: 
+                message: Vous devez indiquer votre email
+        motDePasse:
+            - NotBlank: 
+                message: Vous devez indiquer votre mot de passe

@@ -1,0 +1,3 @@
+bse_selection:
+    resource: "@BseSelectionBundle/Resources/config/routing.yml"
+    prefix:   /

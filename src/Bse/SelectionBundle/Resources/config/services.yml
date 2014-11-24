@@ -1,0 +1,7 @@
+parameters:
+#    bse_selection.example.class: Bse\SelectionBundle\Example
+
+services:
+#    bse_selection.example:
+#        class: %bse_selection.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

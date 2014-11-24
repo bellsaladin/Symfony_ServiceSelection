@@ -1,0 +1,7 @@
+parameters:
+#    bse_candidature.example.class: Bse\CandidatureBundle\Example
+
+services:
+#    bse_candidature.example:
+#        class: %bse_candidature.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

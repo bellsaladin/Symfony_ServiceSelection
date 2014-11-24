@@ -1,0 +1,177 @@
+Candidature:
+    type: entity
+    table: candidature
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        cin:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+        cne:
+            type: string
+            nullable: true
+            length: 12
+            fixed: false
+            comment: ''
+        nom:
+            type: string
+            nullable: true
+            length: 65
+            fixed: false
+            comment: ''
+        prenom:
+            type: string
+            nullable: true
+            length: 65
+            fixed: false
+            comment: ''
+        dateNaissance:
+            type: date
+            nullable: true
+            comment: ''
+            column: date_naissance
+        pays:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        ville:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        adresse:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        sexe:
+            type: string
+            nullable: true
+            length: 1
+            fixed: false
+            comment: ''
+        email:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+        etablissementOrigine:
+            type: string
+            nullable: true
+            length: 90
+            fixed: false
+            comment: ''
+            column: etablissement_origine
+        typeDiplome:
+            type: string
+            nullable: true
+            length: 50
+            fixed: false
+            comment: ''
+            column: type_diplome
+        intituleDiplome:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+            column: intitule_diplome
+        mention:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+        diplomeEtranger:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: diplome_etranger
+        anneeObtentionLicence:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: annee_obtention_licence
+        anneeObtentionBac:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: annee_obtention_bac
+        noteS1:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s1
+        noteS2:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s2
+        noteS3:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s3
+        noteS4:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s4
+        noteS5:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s5
+        noteS6:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+            column: note_s6
+        filiere:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        anneeInscription:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: annee_inscription
+        fosuserId:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: fosuser_id
+    lifecycleCallbacks: {  }

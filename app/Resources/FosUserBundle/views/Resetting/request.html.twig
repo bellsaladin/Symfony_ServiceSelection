@@ -1,0 +1,20 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block subTitle %}
+Mot de passe oublié
+{% endblock %}
+
+{% block fos_user_content %}
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+    <div>
+        {% if invalid_username is defined %}
+            <div class="alert alert-danger">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</div>
+        {% endif %}
+        <label for="username">Adresse email</label>
+        <input type="text" id="username" name="username" required="required" />
+    </div>
+    <div style="margin:20px 0">
+        <input type="submit" class="btn btn-info" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>
+{% endblock fos_user_content %}
