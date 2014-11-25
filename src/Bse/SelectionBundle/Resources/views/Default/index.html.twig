@@ -5,6 +5,7 @@
         .form-inline label{ width:150px;}
         h4{color: #bbb; text-transform: uppercase; font-size: 12px; border-top: 1px solid #eee; padding: 10 0 0 0;}
         .modal h4{ border:none; padding:0;}
+        #scoresModulesContainer .row {padding:10px 0;}
         </style>
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">               
@@ -366,6 +367,10 @@
                     $('#btnExecute').show();
                 });                    
             });
+
+            {% if cookieFaculte == 'FD' %}
+            $('#scoresModulesContainer').show(); 
+            {% endif %}
 
             $('#{{ form.faculte.vars.id }}').change(function () {           
                 //alert($(this).val());
