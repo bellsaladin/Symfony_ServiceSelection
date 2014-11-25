@@ -47,6 +47,18 @@ class Selection
 
     private $noteM6;
 
+    private $noteM1From5To10;  private $noteM1From10To15;  private $noteM1From15To20;
+
+    private $noteM2From5To10;  private $noteM2From10To15;  private $noteM2From15To20;
+
+    private $noteM3From5To10;  private $noteM3From10To15;  private $noteM3From15To20;
+
+    private $noteM4From5To10;  private $noteM4From10To15;  private $noteM4From15To20;
+
+    private $noteM5From5To10;  private $noteM5From10To15;  private $noteM5From15To20;
+
+    private $noteM6From5To10;  private $noteM6From10To15;  private $noteM6From15To20;
+
 
     public function getFaculte(){
         return $this->faculte;
@@ -183,58 +195,179 @@ class Selection
         return $this;
     }
 
-    public function getNoteM1(){
-        return $this->noteM1;
+   
+    public function getnoteM1From5To10(){
+        return $this->noteM1From5To10;
     }
 
-    public function setNoteM1($noteM1){
-        $this->noteM1 = $noteM1;
+    public function setNoteM1From5To10($value){
+        $this->noteM1From5To10 = $value;
         return $this;
     }
 
-    public function getNoteM2(){
-        return $this->noteM2;
+    public function getnoteM1From10To15(){
+        return $this->noteM1From10To15;
     }
 
-    public function setNoteM2($noteM2){
-        $this->noteM2 = $noteM2;
+    public function setNoteM1From10To15($value){
+        $this->noteM1From10To15 = $value;
         return $this;
     }
 
-    public function getNoteM3(){
-        return $this->noteM3;
+    public function getnoteM1From15To20(){
+        return $this->noteM1From15To20;
     }
 
-    public function setNoteM3($noteM3){
-        $this->noteM3 = $noteM3;
+    public function setNoteM1From15To20($value){
+        $this->noteM1From15To20 = $value;
         return $this;
     }
 
-    public function getNoteM4(){
-        return $this->noteM4;
+
+
+    public function getnoteM2From5To10(){
+        return $this->noteM2From5To10;
     }
 
-    public function setNoteM4($noteM4){
-        $this->noteM4 = $noteM4;
+    public function setNoteM2From5To10($value){
+        $this->noteM2From5To10 = $value;
         return $this;
     }
 
-    public function getNoteM5(){
-        return $this->noteM5;
+    public function getnoteM2From10To15(){
+        return $this->noteM2From10To15;
     }
 
-    public function setNoteM5($noteM5){
-        $this->noteM5 = $noteM5;
+    public function setNoteM2From10To15($value){
+        $this->noteM2From10To15 = $value;
         return $this;
     }
 
-    public function getNoteM6(){
-        return $this->noteM6;
+    public function getnoteM2From15To20(){
+        return $this->noteM2From15To20;
     }
 
-    public function setNoteM6($noteM6){
-        $this->noteM6 = $noteM6;
+    public function setNoteM2From15To20($value){
+        $this->noteM2From15To20 = $value;
         return $this;
     }
+
+
+    
+    public function getnoteM3From5To10(){
+        return $this->noteM3From5To10;
+    }
+
+    public function setNoteM3From5To10($value){
+        $this->noteM3From5To10 = $value;
+        return $this;
+    }
+
+    public function getnoteM3From10To15(){
+        return $this->noteM3From10To15;
+    }
+
+    public function setNoteM3From10To15($value){
+        $this->noteM3From10To15 = $value;
+        return $this;
+    }
+
+    public function getnoteM3From15To20(){
+        return $this->noteM3From15To20;
+    }
+
+    public function setNoteM3From15To20($value){
+        $this->noteM3From15To20 = $value;
+        return $this;
+    }
+
+
+
+    public function getnoteM4From5To10(){
+        return $this->noteM4From5To10;
+    }
+
+    public function setNoteM4From5To10($value){
+        $this->noteM4From5To10 = $value;
+        return $this;
+    }
+
+    public function getnoteM4From10To15(){
+        return $this->noteM4From10To15;
+    }
+
+    public function setNoteM4From10To15($value){
+        $this->noteM4From10To15 = $value;
+        return $this;
+    }
+
+    public function getnoteM4From15To20(){
+        return $this->noteM4From15To20;
+    }
+
+    public function setNoteM4From15To20($value){
+        $this->noteM4From15To20 = $value;
+        return $this;
+    }
+
+
+
+    public function getnoteM5From5To10(){
+        return $this->noteM5From5To10;
+    }
+
+    public function setNoteM5From5To10($value){
+        $this->noteM5From5To10 = $value;
+        return $this;
+    }
+
+    public function getnoteM5From10To15(){
+        return $this->noteM5From10To15;
+    }
+
+    public function setNoteM5From10To15($value){
+        $this->noteM5From10To15 = $value;
+        return $this;
+    }
+
+    public function getnoteM5From15To20(){
+        return $this->noteM5From15To20;
+    }
+
+    public function setNoteM5From15To20($value){
+        $this->noteM5From15To20 = $value;
+        return $this;
+    }
+
+
+
+    public function getnoteM6From5To10(){
+        return $this->noteM6From5To10;
+    }
+
+    public function setNoteM6From5To10($value){
+        $this->noteM6From5To10 = $value;
+        return $this;
+    }
+
+    public function getnoteM6From10To15(){
+        return $this->noteM6From10To15;
+    }
+
+    public function setNoteM6From10To15($value){
+        $this->noteM6From10To15 = $value;
+        return $this;
+    }
+
+    public function getnoteM6From15To20(){
+        return $this->noteM6From15To20;
+    }
+
+    public function setNoteM6From15To20($value){
+        $this->noteM6From15To20 = $value;
+        return $this;
+    }
+
+
 
 }

@@ -35,34 +35,34 @@ class DefaultController extends Controller
 
         $request = $this->get('request');
         $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
+        $cookieFaculte = (isset($request->cookies->all()['faculte']))?$request->cookies->all()['faculte']:'';
 
         return $this->render('BseSelectionBundle:Default:index.html.twig', array('entity' => $entity,
-            'form'   => $form->createView(), 'cookieFichierCandidaturesExists' =>$cookieFichierCandidaturesExists));
+            'form'   => $form->createView(), 'cookieFichierCandidaturesExists' =>$cookieFichierCandidaturesExists,'cookieFaculte' => $cookieFaculte ));
     }
 
     public function executeAction(Request $request)
-    {   
-        
-        $filePath = $_FILES['fichierCandidatures']['tmp_name'];
+    {           
         
     	$entity = new Selection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         //$firstCandidature = $request->request->get('firstCandidature');
         
-        $directory = dirname(__FILE__);
-        $name = 'dataDDDD.csv';
-        $fichierCandidatures = null;
+        $directory = dirname(__FILE__).'/../../../../web/bundles/bseselection/uploads';
+        $filename = sprintf( 'export_%s_%s.csv', date('Y_m_d_H_i_s', strtotime('now')), rand() );
         
+        $fichierCandidatures = null;        
+
         $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
         if(!$request->files->get('fichierCandidatures') instanceof UploadedFile && !$cookieFichierCandidaturesExists){
             return new Response('Vous devez téléchargé le fichier de données.');
         }
 
-        if($cookieFichierCandidaturesExists){
+        if($cookieFichierCandidaturesExists && !$request->files->get('fichierCandidatures') instanceof UploadedFile){
             $fichierCandidatures = $request->cookies->all()['fichierCandidatures'];
         }else{
-            $fichierCandidatures = $request->files->get('fichierCandidatures')->move($directory, $name);
+            $fichierCandidatures = $request->files->get('fichierCandidatures')->move($directory, $filename);
         }        
 
         $formData = $form->getData();
@@ -88,16 +88,25 @@ class DefaultController extends Controller
         $htmlOutput = $this->renderView('BseSelectionBundle:Default:execute.html.twig', array('entity' => $entity,
             'form'   => $form->createView(), 'data' => $arrayCandidatures, 'cookieFichierCandidaturesExists' =>$cookieFichierCandidaturesExists));
         $response = new Response($htmlOutput);
+
         $response->headers->setCookie(new Cookie('fichierCandidatures', $fichierCandidatures));
+        $response->headers->setCookie(new Cookie('faculte', $entity->getFaculte()));
         return $response;
     }
 
     public function exportAction()
     {   
+        $request = $this->get('request');
         $session  = $this->get("session");        
         $entity = $session->get("selectionEntity");
 
-        $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'));
+        $fichierCandidatures = '';
+        $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
+        if($cookieFichierCandidaturesExists){
+            $fichierCandidatures = $request->cookies->all()['fichierCandidatures'];
+        }
+
+        $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'),$fichierCandidatures);
 
         $rowIndex = 0;
         foreach($arrayCandidatures as $candidature){
@@ -220,6 +229,51 @@ class DefaultController extends Controller
 
         if($candidature['mention'] == 'Très bien'){
             $score += $selection->getMentionTresBien();
+        }
+
+
+        if($selection->getFaculte() == 'FD'){
+            if($candidature['note_m1'] >= 5 && $candidature['note_m1'] < 10)
+                $score += $selection->getNoteM1From5To10();
+            if($candidature['note_m1'] >= 10 && $candidature['note_m1'] < 15)
+                $score += $selection->getNoteM1From10To15();
+            if($candidature['note_m1'] >= 15 && $candidature['note_m1'] <= 20)
+                $score += $selection->getNoteM1From15To20();
+
+            if($candidature['note_m2'] >= 5 && $candidature['note_m2'] < 10)
+                $score += $selection->getNoteM2From5To10();
+            if($candidature['note_m2'] >= 10 && $candidature['note_m2'] < 15)
+                $score += $selection->getNoteM2From10To15();
+            if($candidature['note_m2'] >= 15 && $candidature['note_m2'] <= 20)
+                $score += $selection->getNoteM2From15To20();
+
+            if($candidature['note_m3'] >= 5 && $candidature['note_m3'] < 10)
+                $score += $selection->getNoteM3From5To10();
+            if($candidature['note_m3'] >= 10 && $candidature['note_m3'] < 15)
+                $score += $selection->getNoteM3From10To15();
+            if($candidature['note_m3'] >= 15 && $candidature['note_m3'] <= 20)
+                $score += $selection->getNoteM3From15To20();
+
+            if($candidature['note_m4'] >= 5 && $candidature['note_m4'] < 10)
+                $score += $selection->getNoteM4From5To10();
+            if($candidature['note_m4'] >= 10 && $candidature['note_m4'] < 15)
+                $score += $selection->getNoteM4From10To15();
+            if($candidature['note_m4'] >= 15 && $candidature['note_m4'] <= 20)
+                $score += $selection->getNoteM4From15To20();
+
+            if($candidature['note_m5'] >= 5 && $candidature['note_m5'] < 10)
+                $score += $selection->getNoteM5From5To10();
+            if($candidature['note_m5'] >= 10 && $candidature['note_m5'] < 15)
+                $score += $selection->getNoteM5From10To15();
+            if($candidature['note_m5'] >= 15 && $candidature['note_m5'] <= 20)
+                $score += $selection->getNoteM5From15To20();
+
+            if($candidature['note_m6'] >= 5 && $candidature['note_m6'] < 10)
+                $score += $selection->getNoteM6From5To10();
+            if($candidature['note_m6'] >= 10 && $candidature['note_m6'] < 15)
+                $score += $selection->getNoteM6From10To15();
+            if($candidature['note_m6'] >= 15 && $candidature['note_m6'] <= 20)
+                $score += $selection->getNoteM6From15To20();            
         }
 
         return $score;

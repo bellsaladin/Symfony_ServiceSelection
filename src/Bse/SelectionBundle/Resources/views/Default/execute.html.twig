@@ -8,10 +8,10 @@
 		<th>Num dossier</th>
 		<th>Score</th>
 	</tr>	
-{% for candidature in data %}
+	{% for candidature in data %}
 	<tr>
 		<td>{{candidature.id}}</td>
 		<td>{{candidature.score}}</td>
-	</tr>	
-{% endfor %}
+	</tr>
+	{% endfor %}
 </table>

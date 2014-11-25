@@ -30,12 +30,30 @@ class SelectionType extends AbstractType
             ->add('mentionAssezBien')
             ->add('mentionBien')
             ->add('mentionTresBien')
-            ->add('noteM1')
-            ->add('noteM2')
-            ->add('noteM3')
-            ->add('noteM4')
-            ->add('noteM5')
-            ->add('noteM6')
+            
+            ->add('noteM1From5To10')
+            ->add('noteM1From10To15')
+            ->add('noteM1From15To20')
+            
+            ->add('noteM2From5To10')
+            ->add('noteM2From10To15')
+            ->add('noteM2From15To20')
+            
+            ->add('noteM3From5To10')
+            ->add('noteM3From10To15')
+            ->add('noteM3From15To20')
+            
+            ->add('noteM4From5To10')
+            ->add('noteM4From10To15')
+            ->add('noteM4From15To20')
+            
+            ->add('noteM5From5To10')
+            ->add('noteM5From10To15')
+            ->add('noteM5From15To20')
+            
+            ->add('noteM6From5To10')
+            ->add('noteM6From10To15')
+            ->add('noteM6From15To20')
         ;
     }
 
