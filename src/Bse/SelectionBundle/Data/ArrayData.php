@@ -11,19 +11,20 @@ class ArrayData
     }
 
 
-     public static function getCandidaturesData($kernel)
+     public static function getCandidaturesData($kernel, $filePath)
     {
     	$rootDir = $kernel->getRootDir();
 
     	$resultArray = array();
     	ini_set('auto_detect_line_endings',TRUE);
 
-    	$handle = fopen($rootDir. '/../src/Bse/SelectionBundle/Data/candidatures.csv','r');
+    	//$handle = fopen($rootDir. '/../src/Bse/SelectionBundle/Data/candidatures.csv','r');
+    	$handle = fopen($filePath,'r');
     	$columns = array();
     	$firstRow = true;
 		while (($data = fgetcsv($handle, 4000, ";")) !== FALSE) {
 	        if($firstRow){
-	        	foreach($data as $columnValue){
+	        	foreach($data as $columnValue){	        		
 	        		$columns[] = $columnValue;
 	        	}	        	
 	        	$firstRow = false;
@@ -31,7 +32,8 @@ class ArrayData
 		        $colIndex = 0;
 		        $candidature = array();
 		        foreach($data as $columnValue){
-		        	$candidature[$columns[$colIndex]] = $columnValue;
+		        	if($columns[$colIndex] != 'fosuser_id')
+		        		$candidature[$columns[$colIndex]] = $columnValue;
 		        	$colIndex++;
 		    	}
 		    	$resultArray[] = $candidature;

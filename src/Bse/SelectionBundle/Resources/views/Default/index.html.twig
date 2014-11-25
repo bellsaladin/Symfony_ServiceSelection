@@ -1,7 +1,11 @@
 {% extends 'BseSelectionBundle::layout.html.twig' %}
 
 {% block content %}        
-        
+        <style>
+        .form-inline label{ width:150px;}
+        h4{color: #bbb; text-transform: uppercase; font-size: 12px; border-top: 1px solid #eee; padding: 10 0 0 0;}
+        .modal h4{ border:none;}
+        </style>
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">               
           <div class="modal-dialog">
@@ -23,116 +27,144 @@
             <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
-        {% endfor %}
-
+        {% endfor %}        
+        <br/> 
+        {{ form_start(form, {'method': 'POST', 'attr': {'id': 'selectionForm', 'enctype':'multipart/form-data'}} ) }}        
+        <div class="row" style="margin-top:50px">
+            <div class="form-inline col-md-4">
+                <label>Faculté :</label>
+                <select id="{{ form.faculte.vars.id }}" name="{{ form.faculte.vars.full_name }}" class="form-control input-sm" style="width:200px">
+                    <option value="FS">Faculté des sciences</option>
+                    <option value="FL">Faculté des Lettres et des Sciences Humaines Kénitra</option>
+                    <option value="FD">Faculté des Sciences Juridiques, Economiques et Sociales</option>
+                </select>
+            </div>            
+            <div class="form-inline col-md-8">
+                <label>Fichier :</label>
+                
+                <input type="file" name="fichierCandidatures" style="display:inline">
+                {% if cookieFichierCandidaturesExists %}<div style="padding:5px 0"><div class="label label-info">Le dernier fichier sera utilisé si aucun fichier n'est choisi</div></div>{% endif%}
+            </div>
+        </div>
+        <br/>        
+        <h4>Age</h4>
+        <div class="row">
+            <div class="form-inline col-md-4">
+                <label>18 à 22 :</label>
+                <select id="{{ form.ageFrom18To22.vars.id }}" name="{{ form.ageFrom18To22.vars.full_name }}" class="form-control input-sm" style="width:60px">
+                    {% for i in 0..10 %}
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-inline col-md-4">
+                <label>23 à 25 :</label>            
+                <select id="{{ form.ageFrom23To25.vars.id }}" name="{{ form.ageFrom23To25.vars.full_name }}" class="form-control input-sm" style="width:60px">
+                    {% for i in 0..10 %}
+                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
         <br/>
-
-        {{ form_start(form, {'method': 'POST', 'attr': {'id': 'selectionForm'}} ) }}
-        <h4 style"> Age :</h4>
+        <h4>Diplôme</h4>
         <div class="row">
-            <div class="form-group col-md-6">
-                <label>18 à 22</label>            
-                <select id="{{ form.ageFrom18To22.vars.id }}" name="{{ form.ageFrom18To22.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Diplôme de l'UIT : </label>            
+                <select id="{{ form.etablissement.vars.id }}" name="{{ form.etablissement.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-6">
-                <label>23 à 25</label>            
-                <select id="{{ form.ageFrom23To25.vars.id }}" name="{{ form.ageFrom23To25.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Type du diplôme :</label>            
+                <select id="{{ form.typeDiplome.vars.id }}" name="{{ form.typeDiplome.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
+                <select id="{{ form.typeDiplomeLFouLP.vars.id }}" name="{{ form.typeDiplomeLFouLP.vars.full_name }}" class="form-control input-sm" style="width:60px">
+                    <option value="LF">LF</option>
+                    <option value="LP">LP</option>
+                </select>
             </div>
-        </div>        
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label>UIT : </label>            
-                <select id="{{ form.etablissement.vars.id }}" name="{{ form.etablissement.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Type du système :</label>            
+                <select id="{{ form.typeSysteme.vars.id }}" name="{{ form.typeSysteme.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Type diplôme</label>            
-                <select id="{{ form.typeDiplome.vars.id }}" name="{{ form.typeDiplome.vars.full_name }}" class="form-control input-sm">
-                    {% for i in 0..10 %}
-                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group col-md-4">
-                <label>Type système</label>            
-                <select id="{{ form.typeSysteme.vars.id }}" name="{{ form.typeSysteme.vars.full_name }}" class="form-control input-sm">
-                    {% for i in 0..10 %}
-                        <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
-                    {% endfor %}
+                <select id="{{ form.typeSystemeLMDouAncien.vars.id }}" name="{{ form.typeSystemeLMDouAncien.vars.full_name }}" class="form-control input-sm" style="width:60px">
+                    <option value="LMD">LMD</option>
+                    <option value="Ancien">Ancien</option>
                 </select>
             </div>
         </div>
-        <h4 style"> Durée de la licence :</h4>
+        <br/>
+        <h4>Durée d'obtention de la licence</h4>
         <div class="row">
-            <div class="form-group col-md-4">
+            <div class="form-inline col-md-4">
                 <label>3 à 4 ans : </label>            
-                <select id="{{ form.dureeLicenceFrom3To4.vars.id }}" name="{{ form.dureeLicenceFrom3To4.vars.full_name }}" class="form-control input-sm">
+                <select id="{{ form.dureeLicenceFrom3To4.vars.id }}" name="{{ form.dureeLicenceFrom3To4.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label>5 à 6 ans</label>            
-                <select id="{{ form.dureeLicenceFrom5To6.vars.id }}" name="{{ form.dureeLicenceFrom5To6.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>5 à 6 ans :</label>            
+                <select id="{{ form.dureeLicenceFrom5To6.vars.id }}" name="{{ form.dureeLicenceFrom5To6.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label>7 à 8 ans</label>            
-                <select id="{{ form.dureeLicenceFrom7To8.vars.id }}" name="{{ form.dureeLicenceFrom7To8.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>7 à 8 ans :</label>            
+                <select id="{{ form.dureeLicenceFrom7To8.vars.id }}" name="{{ form.dureeLicenceFrom7To8.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-        <h4 style"> Mentions :</h4>
+        <br/>
+        <h4>Mentions</h4>
         <div class="row">
-            <div class="form-group col-md-4">
-                <label>Assez bien </label>            
-                <select id="{{ form.mentionAssezBien.vars.id }}" name="{{ form.mentionAssezBien.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Assez bien :</label>            
+                <select id="{{ form.mentionAssezBien.vars.id }}" name="{{ form.mentionAssezBien.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label>Bien</label>            
-                <select id="{{ form.mentionBien.vars.id }}" name="{{ form.mentionBien.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Bien :</label>            
+                <select id="{{ form.mentionBien.vars.id }}" name="{{ form.mentionBien.vars.full_name }}" class="form-control input-sm" style="width:60px">>
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
-            <div class="form-group col-md-4">
-                <label>Très bien</label>            
-                <select id="{{ form.mentionTresBien.vars.id }}" name="{{ form.mentionTresBien.vars.full_name }}" class="form-control input-sm">
+            <div class="form-inline col-md-4">
+                <label>Très bien :</label>            
+                <select id="{{ form.mentionTresBien.vars.id }}" name="{{ form.mentionTresBien.vars.full_name }}" class="form-control input-sm" style="width:60px">>
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
                     {% endfor %}
                 </select>
             </div>
         </div>
-
-        <br/>   
+        <hr/>
         <div>
-            <div>                
-                <input type="button" id="execute" class="btn btn-success btn-sm pull-left" value="Exécuter"/>
-                <div id="loadingIndicator" style="float: left;margin: 5px 0 0 20px;display:none;"><img class="pull-left" src="{{ asset('bundles/bseselection/images/ajax-loader.gif') }}"/>&nbsp;&nbsp;Traitement en cours...</div>
+            <div class="row" style="text-align:center">
+                <div id="loadingIndicator" class="btn btn-success btn-sm" style="background-color:white; color:#000; border-color:#ccc; width: 220px; display:none;"><img src="{{ asset('bundles/bseselection/images/ajax-loader.gif') }}"/>&nbsp;&nbsp;Traitement en cours...</div>
+            </div>
+            <div style="text-align:center">                
+                <input type="submit" id="btnExecute" class="btn btn-success btn-sm" value="Lancer la préseléction" style="width: 220px;"/>                
             </div>
                         
         </div>
@@ -140,25 +172,36 @@
         <script>
         $(document).ready(function() {
 
-            $('#execute').click(function() {
-                // alert('test');
-                var formData = $("#selectionForm").serializeArray();
-                var URL = $("#selectionForm").attr("action");
+             $( '#selectionForm' ).submit( function( e ) {   
                 $('#loadingIndicator').show();
-                $.post(URL,
-                    formData,
-                    function(data, textStatus, jqXHR)
-                    {
-                        //alert("le résultat doit être trié selon le score avant de l'affiché");
-                        $('#myModal .modal-body').html(data);
-                        $('#myModal').modal('show');                       
-                       $('#loadingIndicator').hide();
-                    }).fail(function(jqXHR, textStatus, errorThrown) 
-                    {
-                        $('#loadingIndicator').hide();
-                    });
-                });
-        });
+                $('#btnExecute').hide();
+
+                var URL = $("#selectionForm").attr('action');
+                e.preventDefault();                
+                $.ajax( {
+                  url: URL,
+                  type: 'POST',
+                  data: new FormData( this ),
+                  processData: false,
+                  contentType: false
+               }).done(function(data) {                    
+                    $('#myModal .modal-body').html(data);
+                    $('#myModal').modal('show'); 
+                    
+                    $('#loadingIndicator').hide();
+                    $('#btnExecute').show();
+
+                }).fail(function(jqXHR,status, errorThrown) {                    
+                    $('#myModal .modal-body').html(errorThrown);
+                    //$('#myModal .modal-body').html(jqXHR.responseText);
+                    //$('#myModal .modal-body').html(jqXHR.status);
+                    $('#myModal').modal('show');
+
+                    $('#loadingIndicator').hide();
+                    $('#btnExecute').show();
+                });                    
+            });
+        });   
         </script>
 
         {{ form_end(form,{'render_rest': false}) }} 

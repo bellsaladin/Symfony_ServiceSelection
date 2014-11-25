@@ -4,8 +4,10 @@ namespace Bse\SelectionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Bse\SelectionBundle\Form\SelectionType;
 use Bse\SelectionBundle\Entity\Selection;
@@ -22,6 +24,8 @@ use Exporter\Writer\XmlWriter;
 use Exporter\Writer\JsonWriter;
 use Exporter\Writer\CsvWriter;
 
+
+
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -29,26 +33,46 @@ class DefaultController extends Controller
     	$entity = new Selection();
         $form   = $this->createCreateForm($entity);
 
+        $request = $this->get('request');
+        $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
+
         return $this->render('BseSelectionBundle:Default:index.html.twig', array('entity' => $entity,
-            'form'   => $form->createView() ));
+            'form'   => $form->createView(), 'cookieFichierCandidaturesExists' =>$cookieFichierCandidaturesExists));
     }
 
     public function executeAction(Request $request)
-    {
+    {   
+        
+        $filePath = $_FILES['fichierCandidatures']['tmp_name'];
+        
     	$entity = new Selection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         //$firstCandidature = $request->request->get('firstCandidature');
+        
+        $directory = dirname(__FILE__);
+        $name = 'dataDDDD.csv';
+        $fichierCandidatures = null;
+        
+        $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
+        if(!$request->files->get('fichierCandidatures') instanceof UploadedFile && !$cookieFichierCandidaturesExists){
+            return new Response('Vous devez téléchargé le fichier de données.');
+        }
+
+        if($cookieFichierCandidaturesExists){
+            $fichierCandidatures = $request->cookies->all()['fichierCandidatures'];
+        }else{
+            $fichierCandidatures = $request->files->get('fichierCandidatures')->move($directory, $name);
+        }        
 
         $formData = $form->getData();
 
         $session  = $this->get("session");
         $session->set("selectionEntity",$entity);
-
        
         $ageFrom18To22 = $form->get('ageFrom18To22')->getData();
 
-        $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'));
+        $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'), $fichierCandidatures);
 
         $rowIndex = 0;
         foreach($arrayCandidatures as $candidature){
@@ -61,19 +85,15 @@ class DefaultController extends Controller
 
         $arrayCandidatures = $this->array_msort($arrayCandidatures, array('score'=>SORT_DESC));
 
-        return $this->render('BseSelectionBundle:Default:execute.html.twig', array('entity' => $entity,
-            'form'   => $form->createView(), 'data' => $arrayCandidatures )); 
-
-
-        // export
-        //$exportedArray = array(array('hello','dadadda','dadaad'));
-        $arraySource = new ArraySourceIterator($arrayCandidatures);
-        $filename = sprintf( 'export_%s.xls', date('Y_m_d_H_i_s', strtotime('now')) );
-        return $this->getResponse('xls', $filename, $arraySource);
+        $htmlOutput = $this->renderView('BseSelectionBundle:Default:execute.html.twig', array('entity' => $entity,
+            'form'   => $form->createView(), 'data' => $arrayCandidatures, 'cookieFichierCandidaturesExists' =>$cookieFichierCandidaturesExists));
+        $response = new Response($htmlOutput);
+        $response->headers->setCookie(new Cookie('fichierCandidatures', $fichierCandidatures));
+        return $response;
     }
 
     public function exportAction()
-    {
+    {   
         $session  = $this->get("session");        
         $entity = $session->get("selectionEntity");
 
@@ -168,15 +188,15 @@ class DefaultController extends Controller
 
          // score type diplome -------------------
 
-        if($candidature['type_diplome'] == 'LF'){
+        if($candidature['type_diplome'] == $selection->getTypeDiplomeLFouLP()){
             $score += $selection->getTypeDiplome();            
         }
 
         // score type système -------------------
 
-        if($candidature['systeme'] == 'LMD'){
+        if($candidature['systeme'] == $selection->getTypeSystemeLMDouAncien() ){
             $score += $selection->getTypeSysteme();
-        }
+        }        
 
         // score etablissement ibn tofail -------------------
 

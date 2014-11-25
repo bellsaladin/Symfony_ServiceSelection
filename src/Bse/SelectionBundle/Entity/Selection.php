@@ -5,6 +5,10 @@ namespace Bse\SelectionBundle\Entity;
 class Selection
 {
 
+    private $faculte;
+
+    private $filiere;
+
     private $age_from_18_to_22;
 
     private $age_from_23_to_25;
@@ -15,9 +19,13 @@ class Selection
 
     private $duree_licence_from_7_to_8;
 
+    private $etablissement;
+
+    private $type_diplome_lf_ou_lp;
+
     private $type_diplome;
 
-    private $etablissement;
+    private $type_systeme_lmd_ou_ancien;    
 
     private $type_systeme;
 
@@ -27,8 +35,36 @@ class Selection
 
     private $mention_tresbien;
 
+    private $noteM1;
+
+    private $noteM2;
+
+    private $noteM3;
+
+    private $noteM4;
+
+    private $noteM5;
+
+    private $noteM6;
 
 
+    public function getFaculte(){
+        return $this->faculte;
+    }
+
+    public function setFaculte($faculte){
+        $this->faculte = $faculte;
+        return $this;
+    }
+
+    public function getFiliere(){
+        return $this->filiere;
+    }
+
+    public function setFiliere($filiere){
+        $this->filiere = $filiere;
+        return $this;
+    }
 
     public function getAgeFrom18to22(){
         return $this->age_from_18_to_22;
@@ -84,12 +120,30 @@ class Selection
         return $this;
     }
 
+    public function getTypeDiplomeLFouLP(){
+        return $this->type_diplome_lf_ou_lp;
+    }
+
+    public function setTypeDiplomeLFouLp($value){
+        $this->type_diplome_lf_ou_lp= $value;
+        return $this;
+    }
+
     public function getTypeSysteme(){
         return $this->type_systeme;
     }
 
     public function setTypeSysteme($typeSysteme){
         $this->type_systeme = $typeSysteme;
+        return $this;
+    }
+
+    public function getTypeSystemeLMDouAncien(){
+        return $this->type_systeme_lmd_ou_ancien;
+    }
+
+    public function setTypeSystemeLMDouAncien($value){
+        $this->type_systeme_lmd_ou_ancien = $value;
         return $this;
     }
 
@@ -126,6 +180,60 @@ class Selection
 
     public function setMentionTresBien($value){
         $this->mention_tresbien = $value;
+        return $this;
+    }
+
+    public function getNoteM1(){
+        return $this->noteM1;
+    }
+
+    public function setNoteM1($noteM1){
+        $this->noteM1 = $noteM1;
+        return $this;
+    }
+
+    public function getNoteM2(){
+        return $this->noteM2;
+    }
+
+    public function setNoteM2($noteM2){
+        $this->noteM2 = $noteM2;
+        return $this;
+    }
+
+    public function getNoteM3(){
+        return $this->noteM3;
+    }
+
+    public function setNoteM3($noteM3){
+        $this->noteM3 = $noteM3;
+        return $this;
+    }
+
+    public function getNoteM4(){
+        return $this->noteM4;
+    }
+
+    public function setNoteM4($noteM4){
+        $this->noteM4 = $noteM4;
+        return $this;
+    }
+
+    public function getNoteM5(){
+        return $this->noteM5;
+    }
+
+    public function setNoteM5($noteM5){
+        $this->noteM5 = $noteM5;
+        return $this;
+    }
+
+    public function getNoteM6(){
+        return $this->noteM6;
+    }
+
+    public function setNoteM6($noteM6){
+        $this->noteM6 = $noteM6;
         return $this;
     }
 
