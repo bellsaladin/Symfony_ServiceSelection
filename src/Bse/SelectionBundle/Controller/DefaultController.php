@@ -280,6 +280,63 @@ class DefaultController extends Controller
         //return 100;
     }
 
+
+    public function exportCsvFilesAction(){
+        $request = $this->get('request');
+        $kernel = $this->get('kernel');
+        $rootDir = $kernel->getRootDir();
+        $faculteCode = $request->query->get('faculte');
+
+        $fichierCandidatures = $rootDir. '/../src/Bse/SelectionBundle/Data/candidatures_'.$faculteCode.'.csv';
+
+        $arrayCandidatures = ArrayData::getCandidaturesData($kernel,$fichierCandidatures);        
+
+        $filieresFaculte = ArrayData::getFilieresData($this->container,$faculteCode);
+        $filiereIndex = 0;
+        $matchingCandidaturesIndex = 0;
+        foreach($filieresFaculte as $filiere){  
+            $arrayCandidaturesMatchingFiliere = array();  // recreate the array for each filiere
+
+            foreach($arrayCandidatures as $candidature){
+                $filieresChoisies = $candidature['filiere'];
+                $filieresChoisies = explode('//',$candidature['filiere']);
+                foreach($filieresChoisies as $filiereChoisie){
+                    if($filiereChoisie == $filiere){
+                        //$candidature['score'] = $filiereChoisie;
+                        unset($candidature['filiere']);
+                        unset($candidature['email']);
+                        $arrayCandidaturesMatchingFiliere[$matchingCandidaturesIndex] = $candidature; 
+                    }
+                }
+                $matchingCandidaturesIndex++;
+            }            
+            $filiereLibelleWithoutSpecialCaracters = preg_replace('/[^\w\s]+/u','', $filiere);
+            $filiereLibelleWithoutSpecialCaracters = strtolower($filiereLibelleWithoutSpecialCaracters);
+            $filiereLibelleWithoutSpecialCaracters = ucwords($filiereLibelleWithoutSpecialCaracters);
+            $filiereLibelleWithoutSpecialCaracters = preg_replace('/\s+/', '', $filiereLibelleWithoutSpecialCaracters);
+            $exportFile = sprintf( 'Candidatures_%s.csv', $filiereLibelleWithoutSpecialCaracters);            
+            $filiereData = array('libelle' => $filiere, 'candidaturesArray' => $arrayCandidaturesMatchingFiliere, 'exportFile' => $exportFile);
+            $filieresFaculte[$filiereIndex] = $filiereData;
+            $filiereIndex++;
+        }
+
+        $numFiliereToExport = $request->query->get('num');
+        if(isset($numFiliereToExport) ){
+            $filename = $filieresFaculte[$numFiliereToExport]['exportFile'];
+            $arraySource = new ArraySourceIterator($filieresFaculte[$numFiliereToExport]['candidaturesArray']);
+            return $this->getResponse('csv', $filename, $arraySource);
+        }
+        return $this->render('BseSelectionBundle:Default:exportCsvFiles.html.twig', array('data' => $filieresFaculte, 'faculteCode' => $faculteCode));
+
+
+        // export
+        //$exportedArray = array(array('hello','dadadda','dadaad'));
+        $arraySource = new ArraySourceIterator($arrayCandidatures);
+        $filename = sprintf( 'export_%s.xls', date('Y_m_d_H_i_s', strtotime('now')) );
+        return $this->getResponse('csv', $filename, $arraySource);
+    }
+
+
     /**
      * Creates a form to create a Selection entity.
      *
@@ -299,7 +356,6 @@ class DefaultController extends Controller
         return $form;
     }
 
-
     public function getResponse($format, $filename, SourceIteratorInterface $source)
     {
         switch ($format) {
@@ -316,7 +372,7 @@ class DefaultController extends Controller
                 $contentType = 'application/json';
                 break;
             case 'csv':
-                $writer      = new CsvWriter('php://output', ',', '"', "", true, true);
+                $writer      = new CsvWriter('php://output', ';', '"', "", true, true);
                 $contentType = 'text/csv';
                 break;
             default:

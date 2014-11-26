@@ -1,0 +1,14 @@
+{# {{ dump(data) }} #}
+<br/>
+<table class="table">
+	<tr>
+		<th>Filière</th>		
+		<th>NbrCandidatures</th>
+	</tr>	
+	{% for filiere in data %}
+	<tr>
+		<td><a href="{{ path('bse_export_csvFiles', {'faculte': faculteCode, 'num': loop.index - 1 }) }}">{{filiere.libelle}}</a></td>
+		<td>{{filiere.candidaturesArray|length}}</td>
+	</tr>
+	{% endfor %}
+</table> 

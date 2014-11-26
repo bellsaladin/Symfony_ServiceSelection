@@ -22,28 +22,27 @@ class ArrayData
     	$handle = fopen($filePath,'r');
     	$columns = array();
     	$firstRow = true;
-		while (($data = fgetcsv($handle, 4000, ";")) !== FALSE) {
-	        if($firstRow){
-	        	foreach($data as $columnValue){	        		
-	        		$columns[] = $columnValue;
-	        	}	        	
-	        	$firstRow = false;
-	        }else{	        
-		        $colIndex = 0;
-		        $candidature = array();
-		        foreach($data as $columnValue){
-		        	if($columns[$colIndex] != 'fosuser_id')
-		        		$candidature[$columns[$colIndex]] = $columnValue;
-		        	$colIndex++;
-		    	}
-		    	$resultArray[] = $candidature;
-		    }
-	    }
-	    fclose($handle);
-		return $resultArray;
+  		while (($data = fgetcsv($handle, 4000, ";")) !== FALSE) {
+  	        if($firstRow){
+  	        	foreach($data as $columnValue){
+  	        		$columns[] = $columnValue;
+  	        	}
+  	        	$firstRow = false;
+  	        }else{
+  		        $colIndex = 0;
+  		        $candidature = array();
+  		        foreach($data as $columnValue){
+  		        	$candidature[$columns[$colIndex]] = $columnValue;
+  		        	$colIndex++;
+  		    	}
+  		    	$resultArray[] = $candidature;
+  		    }
+  	    }
+  	    fclose($handle);
+  		return $resultArray;
     }
 
-	public static function getFilieresData($container)
+    public static function getFilieresData($container, $faculteCode = '')
     {
     	$data_1 =array(
 			'Mathématiques et applications',
@@ -69,29 +68,33 @@ class ArrayData
 
 		$data_2 = array(
 			'مكونات الأدب العربي في  المغرب الحديث والمعاصر: التاريخ  والخطابية',
-			'Langue française et diversité linguistique',			
+			'Langue française et diversité linguistique',
 			'Dynamique et gestion de l\'environnement',
 			'Gestion Territoriale des risques environnementaux',
 			'شمال إفريقيا وجنوب الصحراء',
-			'Changement Climatiques , Ressources en Eau et développement durable au Maroc',
+			'Changements Climatiques , Ressources en Eau et développement durable au Maroc',
 			'اللسانيات العربية والإعداد اللغوي',
 			'اللهجات العربية والأدب الشفهي بالمغرب',
 			'الاختلاف في العلوم الشرعية',
 			'التواصل وتحليل الخطاب',
 			'سوسيولوجبا التنمية المحلية',
-			'Teaching English As A Foreign Language (TEFL)',
+			//'Teaching English As A Foreign Language (TEFL)',
 			'Master in Culture and linguistics',
-			'Géographie et Aménagement'
+			//'Géographie et Aménagement'
 		);
 
 		$data_3 = array(
-			'MARKETING ET LOGISTIQUE',
+			'Banque et Assurance',
 			'Management Audit et Contrôle',
-			'BANQUE et ASSURANCE'
+			'Logistique et Marketing : Logistique et Supply Chain',
+			'Logistique et Marketing : Marketing et Distribution'
 		);
 
 		$data = array('FS'=>$data_1, 'FL' => $data_2, 'FD' => $data_3);
-		return $data[$container->getParameter('faculte_code')];
+
+		if(empty($faculteCode))
+			$faculteCode = $container->getParameter('faculte_code');
+		return $data[$faculteCode];
     }
 
     public static function getEtablissementsData($kernel)
@@ -103,15 +106,15 @@ class ArrayData
 
     	$handle = fopen($rootDir. '/../src/Bse/CandidatureBundle/Data/etablissements.csv','r');
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-	        $num = count($data);	        
+	        $num = count($data);
 	        $resultArray[$data[0]] = $data[1];
 	    }
 	    fclose($handle);
     	/*$data =array(
 			'Maroc',
-			'Autre',			
+			'Autre',
 		);*/
-		return $resultArray;		
+		return $resultArray;
 
     }
 
@@ -133,22 +136,18 @@ class ArrayData
 	    $intitulesdiplomes_LP = array();
     	$handle = fopen($rootDir. '/../src/Bse/CandidatureBundle/Data/intitulesdiplomes_LP.csv','r');
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-	        $num = count($data);	        
+	        $num = count($data);
 	        $intitulesdiplomes_LP[$data[0]] = $data[1];
 	    }
 	    fclose($handle);
-    	/*$data =array(
-			'Maroc',
-			'Autre',			
-		);*/
-		return array('LF'=> $intitulesdiplomes_LF , 'LP' => $intitulesdiplomes_LP);
+		  return array('LF'=> $intitulesdiplomes_LF , 'LP' => $intitulesdiplomes_LP);
     }
 
     public static function getTypesDiplomeData()
     {
     	$data =array(
 			'LF'=>'Licence Fondamentale',
-			'LP'=>'Licence Professionnelle',			
+			'LP'=>'Licence Professionnelle',
 		);
 		return $data;
 
@@ -185,13 +184,13 @@ class ArrayData
 
     	$handle = fopen($rootDir. '/../src/Bse/CandidatureBundle/Data/pays.csv','r');
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-	        $num = count($data);	        
+	        $num = count($data);
 	        $resultArray[$data[0]] = $data[1];
 	    }
 	    fclose($handle);
     	/*$data =array(
 			'Maroc',
-			'Autre',			
+			'Autre',
 		);*/
 		return $resultArray;
     }
@@ -205,13 +204,13 @@ class ArrayData
 
     	$handle = fopen($rootDir. '/../src/Bse/CandidatureBundle/Data/villes.csv','r');
 		while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-	        $num = count($data);	        
+	        $num = count($data);
 	        $resultArray[$data[0]] = $data[1];
 	    }
 	    fclose($handle);
     	/*$data =array(
 			'Maroc',
-			'Autre',			
+			'Autre',
 		);*/
 		return $resultArray;
     }
@@ -222,12 +221,12 @@ class ArrayData
 			'FS'=>'Faculté des Sciences',
 			'FL'=>'Faculté des Lettres et des Sciences Humaines',
 			'FD'=>'Faculté de droit'
-			// 'FE'=>'Faculté d\'economie',			
+			// 'FE'=>'Faculté d\'economie',
 		);
 		return $data;
     }
 
-    public static function getValueUsingKey($searchedKey, $array) { 
+    public static function getValueUsingKey($searchedKey, $array) {
     	foreach($array as $key=>$value){
     		if($searchedKey == $key)
     			return $value;

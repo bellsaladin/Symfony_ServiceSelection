@@ -41,21 +41,22 @@ class ArrayData
 			'Dynamique et gestion de l\'environnement',
 			'Gestion Territoriale des risques environnementaux',
 			'شمال إفريقيا وجنوب الصحراء',
-			'Changement Climatiques , Ressources en Eau et développement durable au Maroc',
+			'Changements Climatiques , Ressources en Eau et développement durable au Maroc',
 			'اللسانيات العربية والإعداد اللغوي',
 			'اللهجات العربية والأدب الشفهي بالمغرب',
 			'الاختلاف في العلوم الشرعية',
 			'التواصل وتحليل الخطاب',
 			'سوسيولوجبا التنمية المحلية',
-			'Teaching English As A Foreign Language (TEFL)',
+			//'Teaching English As A Foreign Language (TEFL)',
 			'Master in Culture and linguistics',
-			'Géographie et Aménagement'
+			//'Géographie et Aménagement'
 		);
 
-		$data_3 = array(
-			'MARKETING ET LOGISTIQUE',
+		$data_3 = array(			
+			'Banque et Assurance',
 			'Management Audit et Contrôle',
-			'BANQUE et ASSURANCE'
+			'Logistique et Marketing : Logistique et Supply Chain',
+			'Logistique et Marketing : Marketing et Distribution'
 		);
 
 		$data = array('FS'=>$data_1, 'FL' => $data_2, 'FD' => $data_3);
