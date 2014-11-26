@@ -68,9 +68,7 @@ class DefaultController extends Controller
         $formData = $form->getData();
 
         $session  = $this->get("session");
-        $session->set("selectionEntity",$entity);
-       
-        $ageFrom18To22 = $form->get('ageFrom18To22')->getData();
+        $session->set("selectionEntity",$entity);        
 
         $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'), $fichierCandidatures);
 
@@ -161,7 +159,7 @@ class DefaultController extends Controller
 
         // calcul age -------------------
         $today = new \DateTime();
-        $dateNaissance = new \DateTime('2008-03-13');
+        $dateNaissance = new \DateTime($candidature['date_naissance']);
 
         $diff = $dateNaissance->diff($today);
         $ageCandidat = $diff->y;
