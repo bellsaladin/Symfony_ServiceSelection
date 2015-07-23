@@ -1,6 +1,6 @@
 {% extends 'BseSelectionBundle::layout.html.twig' %}
 
-{% block content %}        
+{% block content %}
         <style>
         .form-inline label{ width:150px;}
         h4{color: #bbb; text-transform: uppercase; font-size: 12px; border-top: 1px solid #eee; padding: 10 0 0 0;}
@@ -8,18 +8,18 @@
         #scoresModulesContainer .row {padding:10px 0;}
         </style>
 
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">               
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">Résultat</h4>
-              </div>              
+              </div>
               <div class="modal-body">
                 <div id="form-erros" style="color:rgb(213, 0, 0);">
                     <p>{{ form_errors(form) }}</p>
-                </div>  
-              </div>              
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -28,9 +28,9 @@
             <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
-        {% endfor %}        
-        <br/> 
-        {{ form_start(form, {'method': 'POST', 'attr': {'id': 'selectionForm', 'enctype':'multipart/form-data'}} ) }}        
+        {% endfor %}
+        <br/>
+        {{ form_start(form, {'method': 'POST', 'attr': {'id': 'selectionForm', 'enctype':'multipart/form-data'}} ) }}
         <div class="row" style="margin-top:50px">
             <div class="form-inline col-md-4">
                 <label>Faculté :</label>
@@ -39,15 +39,15 @@
                     <option value="FL" {% if cookieFaculte == 'FL' %}selected{% endif %}>Faculté des Lettres et des Sciences Humaines Kénitra</option>
                     <option value="FD" {% if cookieFaculte == 'FD' %}selected{% endif %}>Faculté des Sciences Juridiques, Economiques et Sociales</option>
                 </select>
-            </div>            
+            </div>
             <div class="form-inline col-md-8">
                 <label>Fichier :</label>
-                
+
                 <input type="file" name="fichierCandidatures" style="display:inline">
                 {% if cookieFichierCandidaturesExists %}<div style="padding:5px 0"><div class="label label-info">Le dernier fichier sera utilisé si aucun fichier n'est choisi</div></div>{% endif%}
             </div>
         </div>
-        <br/>        
+        <br/>
         <h4>Age</h4>
         <div class="row">
             <div class="form-inline col-md-4">
@@ -59,7 +59,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>23 à 25 :</label>            
+                <label>23 à 25 :</label>
                 <select id="{{ form.ageFrom23To25.vars.id }}" name="{{ form.ageFrom23To25.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -71,7 +71,7 @@
         <h4>Diplôme</h4>
         <div class="row">
             <div class="form-inline col-md-4">
-                <label>Diplôme de l'UIT : </label>            
+                <label>Diplôme de l'UIT : </label>
                 <select id="{{ form.etablissement.vars.id }}" name="{{ form.etablissement.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -79,7 +79,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>Type du diplôme :</label>            
+                <label>Type du diplôme :</label>
                 <select id="{{ form.typeDiplome.vars.id }}" name="{{ form.typeDiplome.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -91,7 +91,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>Type du système :</label>            
+                <label>Type du système :</label>
                 <select id="{{ form.typeSysteme.vars.id }}" name="{{ form.typeSysteme.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -107,7 +107,7 @@
         <h4>Durée d'obtention de la licence</h4>
         <div class="row">
             <div class="form-inline col-md-4">
-                <label>3 à 4 ans : </label>            
+                <label>3 à 4 ans : </label>
                 <select id="{{ form.dureeLicenceFrom3To4.vars.id }}" name="{{ form.dureeLicenceFrom3To4.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -115,7 +115,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>5 à 6 ans :</label>            
+                <label>5 à 6 ans :</label>
                 <select id="{{ form.dureeLicenceFrom5To6.vars.id }}" name="{{ form.dureeLicenceFrom5To6.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -123,7 +123,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>7 à 8 ans :</label>            
+                <label>7 à 8 ans :</label>
                 <select id="{{ form.dureeLicenceFrom7To8.vars.id }}" name="{{ form.dureeLicenceFrom7To8.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -135,7 +135,7 @@
         <h4>Mentions</h4>
         <div class="row">
             <div class="form-inline col-md-4">
-                <label>Assez bien :</label>            
+                <label>Assez bien :</label>
                 <select id="{{ form.mentionAssezBien.vars.id }}" name="{{ form.mentionAssezBien.vars.full_name }}" class="form-control input-sm" style="width:60px">
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -143,7 +143,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>Bien :</label>            
+                <label>Bien :</label>
                 <select id="{{ form.mentionBien.vars.id }}" name="{{ form.mentionBien.vars.full_name }}" class="form-control input-sm" style="width:60px">>
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -151,7 +151,7 @@
                 </select>
             </div>
             <div class="form-inline col-md-4">
-                <label>Très bien :</label>            
+                <label>Très bien :</label>
                 <select id="{{ form.mentionTresBien.vars.id }}" name="{{ form.mentionTresBien.vars.full_name }}" class="form-control input-sm" style="width:60px">>
                     {% for i in 0..10 %}
                         <option value="{{ i }}" {% if i == 5 %}selected{% endif %}>{{ i }}</option>
@@ -329,10 +329,10 @@
             <div class="row" style="text-align:center">
                 <div id="loadingIndicator" class="btn btn-success btn-sm" style="background-color:white; color:#000; border-color:#ccc; width: 220px; display:none;"><img src="{{ asset('bundles/bseselection/images/ajax-loader.gif') }}"/>&nbsp;&nbsp;Traitement en cours...</div>
             </div>
-            <div style="text-align:center">                
-                <input type="submit" id="btnExecute" class="btn btn-success btn-sm" value="Lancer la préseléction" style="width: 220px;"/>                
+            <div style="text-align:center">
+                <input type="submit" id="btnExecute" class="btn btn-success btn-sm" value="Lancer la préseléction" style="width: 220px;"/>
             </div>
-                        
+
         </div>
 
         <script>
@@ -343,21 +343,21 @@
                 $('#btnExecute').hide();
 
                 var URL = $("#selectionForm").attr('action');
-                e.preventDefault();                
+                e.preventDefault();
                 $.ajax( {
                   url: URL,
                   type: 'POST',
                   data: new FormData( this ),
                   processData: false,
                   contentType: false
-               }).done(function(data) {                    
+               }).done(function(data) {
                     $('#myModal .modal-body').html(data);
-                    $('#myModal').modal('show'); 
-                    
+                    $('#myModal').modal('show');
+
                     $('#loadingIndicator').hide();
                     $('#btnExecute').show();
 
-                }).fail(function(jqXHR,status, errorThrown) {                    
+                }).fail(function(jqXHR,status, errorThrown) {
                     $('#myModal .modal-body').html(errorThrown);
                     //$('#myModal .modal-body').html(jqXHR.responseText);
                     //$('#myModal .modal-body').html(jqXHR.status);
@@ -365,14 +365,14 @@
 
                     $('#loadingIndicator').hide();
                     $('#btnExecute').show();
-                });                    
+                });
             });
 
             {% if cookieFaculte == 'FD' %}
-            $('#scoresModulesContainer').show(); 
+            $('#scoresModulesContainer').show();
             {% endif %}
 
-            $('#{{ form.faculte.vars.id }}').change(function () {           
+            $('#{{ form.faculte.vars.id }}').change(function () {
                 //alert($(this).val());
                 if($(this).val() =='FD'){
                     $('#scoresModulesContainer').show();
@@ -380,8 +380,8 @@
                     $('#scoresModulesContainer').hide();
                 }
             });
-        });   
+        });
         </script>
 
-        {{ form_end(form,{'render_rest': false}) }} 
+        {{ form_end(form,{'render_rest': false}) }}
 {% endblock %}

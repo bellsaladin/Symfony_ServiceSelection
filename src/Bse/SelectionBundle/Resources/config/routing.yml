@@ -13,6 +13,6 @@ bse_selection_export:
     defaults: { _controller: BseSelectionBundle:Default:export }
 
 
-bse_export_csvFiles:
-    path:     /hidden/abcd9876yll/exportcsvfiles
-    defaults: { _controller: BseSelectionBundle:Default:exportCsvFiles }
+#bse_export_csvFiles:
+#    path:     /hidden/abcd9876yll/exportcsvfiles
+#    defaults: { _controller: BseSelectionBundle:Default:exportCsvFiles }

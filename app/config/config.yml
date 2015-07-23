@@ -76,7 +76,7 @@ doctrine:
 #     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
 #     firewall_name: main
 #     user_class: Bse\CandidatureBundle\Entity\User
-#     from_email:        
+#     from_email:
 #         sender_name:    Candidature en ligne - UIT
 
 # white_october_tcpdf:

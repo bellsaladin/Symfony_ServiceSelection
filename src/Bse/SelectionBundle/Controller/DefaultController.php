@@ -42,17 +42,17 @@ class DefaultController extends Controller
     }
 
     public function executeAction(Request $request)
-    {           
-        
+    {
+
     	$entity = new Selection();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         //$firstCandidature = $request->request->get('firstCandidature');
-        
+
         $directory = dirname(__FILE__).'/../../../../web/bundles/bseselection/uploads';
         $filename = sprintf( 'export_%s_%s.csv', date('Y_m_d_H_i_s', strtotime('now')), rand() );
-        
-        $fichierCandidatures = null;        
+
+        $fichierCandidatures = null;
 
         $cookieFichierCandidaturesExists = (isset($request->cookies->all()['fichierCandidatures']))?true:false;
         if(!$request->files->get('fichierCandidatures') instanceof UploadedFile && !$cookieFichierCandidaturesExists){
@@ -63,12 +63,12 @@ class DefaultController extends Controller
             $fichierCandidatures = $request->cookies->all()['fichierCandidatures'];
         }else{
             $fichierCandidatures = $request->files->get('fichierCandidatures')->move($directory, $filename);
-        }        
+        }
 
         $formData = $form->getData();
 
         $session  = $this->get("session");
-        $session->set("selectionEntity",$entity);        
+        $session->set("selectionEntity",$entity);
 
         $arrayCandidatures = ArrayData::getCandidaturesData($this->get('kernel'), $fichierCandidatures);
 
@@ -77,7 +77,7 @@ class DefaultController extends Controller
             $score = $this->calculateScoreForCandidature($candidature,$entity);
             $candidature['score'] = $score;
             // update candidature
-            $arrayCandidatures[$rowIndex] = $candidature; 
+            $arrayCandidatures[$rowIndex] = $candidature;
             $rowIndex++;
         }
 
@@ -93,9 +93,9 @@ class DefaultController extends Controller
     }
 
     public function exportAction()
-    {   
+    {
         $request = $this->get('request');
-        $session  = $this->get("session");        
+        $session  = $this->get("session");
         $entity = $session->get("selectionEntity");
 
         $fichierCandidatures = '';
@@ -111,7 +111,7 @@ class DefaultController extends Controller
             $score = $this->calculateScoreForCandidature($candidature,$entity);
             $candidature['score'] = $score;
             // update candidature
-            $arrayCandidatures[$rowIndex] = $candidature; 
+            $arrayCandidatures[$rowIndex] = $candidature;
             $rowIndex++;
         }
 
@@ -178,7 +178,7 @@ class DefaultController extends Controller
             $dureeLicence = $anneeObtentionLicence - $anneeInscription;
         }
 
-        // score age -------------------        
+        // score age -------------------
 
         if($ageCandidat >= 18 && $ageCandidat <= 22){
             $score += $selection->getAgeFrom18To22();
@@ -196,18 +196,18 @@ class DefaultController extends Controller
          // score type diplome -------------------
 
         if($candidature['type_diplome'] == $selection->getTypeDiplomeLFouLP()){
-            $score += $selection->getTypeDiplome();            
+            $score += $selection->getTypeDiplome();
         }
 
         // score type système -------------------
 
         if($candidature['systeme'] == $selection->getTypeSystemeLMDouAncien() ){
             $score += $selection->getTypeSysteme();
-        }        
+        }
 
         // score etablissement ibn tofail -------------------
 
-        if($candidature['etablissement_origine'] == '19000007' || 
+        if($candidature['etablissement_origine'] == '19000007' ||
            $candidature['etablissement_origine'] == '11000005' ||
            $candidature['etablissement_origine'] == '2000004'  ||
            $candidature['etablissement_origine'] == '10000007' ||
@@ -230,7 +230,7 @@ class DefaultController extends Controller
         }
 
 
-        if($selection->getFaculte() == 'FD'){
+        if($selection->getFaculte() == 'FD' && isset($candidature['note_m1'])){
             if($candidature['note_m1'] >= 5 && $candidature['note_m1'] < 10)
                 $score += $selection->getNoteM1From5To10();
             if($candidature['note_m1'] >= 10 && $candidature['note_m1'] < 15)
@@ -271,7 +271,7 @@ class DefaultController extends Controller
             if($candidature['note_m6'] >= 10 && $candidature['note_m6'] < 15)
                 $score += $selection->getNoteM6From10To15();
             if($candidature['note_m6'] >= 15 && $candidature['note_m6'] <= 20)
-                $score += $selection->getNoteM6From15To20();            
+                $score += $selection->getNoteM6From15To20();
         }
 
         return $score;
@@ -287,12 +287,12 @@ class DefaultController extends Controller
 
         $fichierCandidatures = $rootDir. '/../src/Bse/SelectionBundle/Data/candidatures_'.$faculteCode.'.csv';
 
-        $arrayCandidatures = ArrayData::getCandidaturesData($kernel,$fichierCandidatures);        
+        $arrayCandidatures = ArrayData::getCandidaturesData($kernel,$fichierCandidatures);
 
         $filieresFaculte = ArrayData::getFilieresData($this->container,$faculteCode);
         $filiereIndex = 0;
         $matchingCandidaturesIndex = 0;
-        foreach($filieresFaculte as $filiere){  
+        foreach($filieresFaculte as $filiere){
             $arrayCandidaturesMatchingFiliere = array();  // recreate the array for each filiere
 
             foreach($arrayCandidatures as $candidature){
@@ -302,17 +302,17 @@ class DefaultController extends Controller
                     if($filiereChoisie == $filiere){
                         //$candidature['score'] = $filiereChoisie;
                         unset($candidature['filiere']);
-                        unset($candidature['email']);
-                        $arrayCandidaturesMatchingFiliere[$matchingCandidaturesIndex] = $candidature; 
+                        //unset($candidature['email']);
+                        $arrayCandidaturesMatchingFiliere[$matchingCandidaturesIndex] = $candidature;
                     }
                 }
                 $matchingCandidaturesIndex++;
-            }            
+            }
             $filiereLibelleWithoutSpecialCaracters = preg_replace('/[^\w\s]+/u','', $filiere);
             $filiereLibelleWithoutSpecialCaracters = strtolower($filiereLibelleWithoutSpecialCaracters);
             $filiereLibelleWithoutSpecialCaracters = ucwords($filiereLibelleWithoutSpecialCaracters);
             $filiereLibelleWithoutSpecialCaracters = preg_replace('/\s+/', '', $filiereLibelleWithoutSpecialCaracters);
-            $exportFile = sprintf( 'Candidatures_%s.csv', $filiereLibelleWithoutSpecialCaracters);            
+            $exportFile = sprintf( 'Candidatures_%s.csv', $filiereLibelleWithoutSpecialCaracters);
             $filiereData = array('libelle' => $filiere, 'candidaturesArray' => $arrayCandidaturesMatchingFiliere, 'exportFile' => $exportFile);
             $filieresFaculte[$filiereIndex] = $filiereData;
             $filiereIndex++;
